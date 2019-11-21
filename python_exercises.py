@@ -1,3 +1,5 @@
+## Exercises for Python basics
+
 # Exercise 1
 # Subex 2
 b=3
@@ -108,13 +110,13 @@ something.find('plete') #finds first position of substring 'plete'
 thing2 = something.replace('Different','Silly') # replace 'Different'
 
 # Exercise 7 - Aliasing
-list = [[1,2,3],[4,5,6]]
-sublist = list[0]
+liste = [[1,2,3],[4,5,6]]
+sublist = liste[0]
 sublist[1] = 'hello' #this changes both sublist and list
-list[0][1] = 2 #changes BOTH back
+liste[0][1] = 2 #changes BOTH back
 # Avoid this by using copy.deepcopy
 import copy
-sublist2 = copy.deepcopy(list[0])
+sublist2 = copy.deepcopy(liste[0])
 sublist2[1] = 'hello' #changes now just sublist2, not list
 
 # Exercise 8
@@ -133,11 +135,83 @@ def calc_hypo(a,b):
     return hypo
 print(calc_hypo(3,4))
 
+# Exercise 9
+# see created folders and file, also directory TestLib and testfile.py
+
+# Exercise 10
+# Subex 1
+a = set([0,1,2]) #creates a set
+# Subex 2
+band = ['mel','geri','victoria','mel','emma']
+counts = {} #creates empty dictionary
+for member in band:
+    if member not in counts:
+        counts[member] = 1
+    else:
+        counts[member] += 1
+
+for entry in counts:
+    print(entry,counts[entry])
+
+# Exercise 11
+# didn't do that
+
+
+
+## Exercises for Python Numpy
+import numpy as np
+
+# Exercise 1
+# Subex 1
+a1 = np.array(range(1,11),np.int32) # creates an array of integers
+b1 = a1.astype(np.float32) # creates new array b1 with changes type
+a2 = np.array(range(1,11),np.float32) # array of floats
+print(a1.dtype) # shows type of array
+
+# Exercise 2
+# Subex 1
+arr = np.array((list(range(4)),list(range(10,14))))
+arr.shape # this works not for all methods!
+np.shape(arr) # both give the shape, same for a lot of methods in numpy
+
+# Exercise 3
+# Subex 2
+arr = np.array(range(0,10))
+arr < 3 # returns boolian type array, same as:
+np.less(arr,3)
+# array([ True,  True,  True, False, False, False, False, False, False, False])
+arr[arr < 3] # returns array with entries which give True in arr < 3:
+# array([0, 1, 2])
+condition = np.logical_or(arr < 3 , arr > 8) # gives array of boolians
+np.where(condition, arr * 5, arr * -5) # gives array where the second argument is applied to entries that match condition, otherwise the third
+# Subex 3
+def wind_magnitude(u, v, min_val = 0.1):
+    "Function that takes arrays u,v and calulates the total magnitude"
+    mag = (u**2 + v**2)**0.5
+    output = np.where(mag < min_val, min_val, mag)
+    "Here it replaces all entries smaller min_val with min_val"
+    return output
+
+# Exercise 4
+import numpy.ma as MA7
+# Subex 1
+# MA.masked_array(data=[], mask=[], fill_value = )
+marr = MA.masked_array(range(10), fill_value = -999)
+print(marr, marr.fill_value)
+marr[2] = MA.masked # mask the third value
+# Create masked array equal to marr where marr is <7:
+narr = MA.masked_array(marr, marr > 6)
+#OR:
+narr = MA.masked_where(marr > 6, marr)
+x = MA.filled(narr) # filles masked array with fill_value, gives an array
+# Subex 2
+m1 = MA.masked_array(range(1,9))
+m2 = m1.reshape(2,4)
+m3 = MA.masked_where(m2 > 6, m2) #OR:
+m3 = MA.masked_greater(m2, 6)
 
 
 
 
-
-    
 
 
